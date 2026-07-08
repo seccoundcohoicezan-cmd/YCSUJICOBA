@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{event.name}} — Outing Class Inklusi Bali</title>
+<meta name="description" content="{{event.name}} — liburan seru sambil belajar, berpetualang, dan membangun karakter di Bali. Gratis untuk pelajar terpilih.">
+<meta property="og:title" content="{{event.name}} — Outing Class Inklusi Bali">
+<meta property="og:description" content="Gratis untuk pelajar terpilih. Belajar, berpetualang, dan membangun karakter di Bali.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --laut:#0B6E7B; --laut-tua:#084C56; --langit:#EAF8FA;
+  --pasir:#FFF7E8; --senja:#F4772E; --senja-tua:#D95F1B;
+  --matahari:#FFC93C; --tinta:#0F3238; --putih:#FFFFFF;
+  --hijau:#2E8B57; --biru:#1F6FB2;
+  --radius:22px; --radius-s:14px; --shadow:0 10px 30px rgba(8,76,86,.14);
+  --font-display:"Baloo 2",system-ui,sans-serif;
+  --font-body:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{font-family:var(--font-body);color:var(--tinta);background:var(--langit);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15}
+.wrap{width:min(1120px,92%);margin:0 auto}
+.eyebrow{display:inline-block;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:var(--laut);background:rgba(11,110,123,.1);padding:.4em 1em;border-radius:999px;margin-bottom:.9rem}
+.section-title{font-size:clamp(1.7rem,4.5vw,2.5rem);font-weight:800;color:var(--laut-tua)}
+.section-lead{max-width:56ch;margin-top:.6rem;color:#3b5b61}
+.btn{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:1.05rem;text-decoration:none;border-radius:999px;padding:.85em 2em;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--matahari);outline-offset:3px}
+.btn-utama{background:var(--senja);color:#fff;box-shadow:0 8px 22px rgba(244,119,46,.4)}
+.btn-utama:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(244,119,46,.5)}
+.btn-garis{border:2.5px solid var(--laut);color:var(--laut);background:transparent}
+.btn-garis:hover{background:var(--laut);color:#fff}
+.btn-terang{background:#fff;color:var(--laut-tua)}
+.btn-terang:hover{transform:translateY(-2px)}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(234,248,250,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(11,110,123,.12)}
+.topbar-in{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;gap:1rem}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.brand-sun{width:36px;height:36px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 35%,var(--matahari),var(--senja));box-shadow:0 0 0 4px rgba(255,201,60,.25);animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.brand strong{font-family:var(--font-display);font-weight:800;color:var(--laut-tua);font-size:1.05rem;line-height:1.1}
+.brand small{display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--senja);font-weight:700}
+.topnav{display:flex;align-items:center;gap:.4rem}
+.topnav .nav-link{display:none;text-decoration:none;font-weight:600;font-size:.9rem;padding:.5em .9em;border-radius:999px;color:var(--laut-tua)}
+.topnav .nav-link:hover{background:rgba(11,110,123,.1)}
+.topnav .btn{padding:.55em 1.4em;font-size:.92rem}
+@media(min-width:820px){.topnav .nav-link{display:inline-block}}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;padding:4.2rem 0 200px;
+  background:linear-gradient(180deg,#BDEDF3 0%,#8ED8E2 55%,#55B9C9 100%);
+  background-size:100% 300%;animation:seaShift 16s ease-in-out infinite}
+@keyframes seaShift{0%,100%{background-position:0 0}50%{background-position:0 22%}}
+/* VIDEO BACKGROUND (iframe YouTube, opacity 50%) */
+.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-video iframe{
+  position:absolute;top:50%;left:50%;
+  /* selalu menutup penuh area hero, rasio 16:9 */
+  width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;
+  transform:translate(-50%,-50%);
+  opacity:.5;border:0;
+}
+/* overlay agar teks tetap jelas terbaca di atas video */
+.hero-video::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(189,237,243,.55) 0%,rgba(142,216,226,.45) 55%,rgba(85,185,201,.55) 100%)}
+/* cahaya matahari lembut yang berdenyut */
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60rem 30rem at 85% -10%,rgba(255,201,60,.45),transparent 60%);
+  animation:sunGlow 9s ease-in-out infinite}
+@keyframes sunGlow{0%,100%{opacity:.75}50%{opacity:1}}
+/* lapisan ombak bergerak di dasar hero (SVG inline, ringan, no JS) */
+.hero-sea{position:absolute;left:0;right:0;bottom:0;height:220px;z-index:1;pointer-events:none;overflow:hidden}
+.hero-sea .wave-layer{position:absolute;left:0;bottom:0;width:200%;height:100%;
+  background-repeat:repeat-x;background-position:0 bottom;background-size:50% 100%}
+.hero-sea .w1{opacity:.35;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C120,110 240,30 360,60 C480,90 600,40 720,70 L720,120 L0,120 Z' fill='%2355B9C9'/%3E%3C/svg%3E");animation:waveMove 11s linear infinite}
+.hero-sea .w2{opacity:.5;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,80 C150,40 300,110 450,75 C570,48 660,90 720,78 L720,120 L0,120 Z' fill='%233FA7B8'/%3E%3C/svg%3E\");animation:waveMove 8s linear infinite reverse}
+.hero-sea .w3{opacity:.85;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,95 C180,70 320,120 480,95 C600,76 680,100 720,92 L720,120 L0,120 Z' fill='%23EAF8FA'/%3E%3C/svg%3E\");animation:waveMove 6s linear infinite}
+@keyframes waveMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .hero{animation:none}.hero::before{animation:none}
+  .hero-sea .wave-layer{animation:none}
+}
+.hero-grid{position:relative;z-index:2;display:grid;gap:2.2rem;align-items:center}
+@media(min-width:900px){.hero-grid{grid-template-columns:1.15fr .85fr;gap:3rem}}
+.hero-badge{display:inline-flex;align-items:center;gap:.5em;background:#fff;border-radius:999px;padding:.45em 1.1em;font-weight:700;font-size:.8rem;color:var(--laut-tua);box-shadow:var(--shadow);margin-bottom:1.1rem}
+.hero-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--senja);flex:none;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+.hero h1{font-size:clamp(2.3rem,6.5vw,4rem);font-weight:800;color:var(--laut-tua);text-wrap:balance}
+.hero h1 .sorot{color:var(--senja);text-decoration:underline;text-decoration-color:var(--matahari);text-decoration-thickness:.14em;text-underline-offset:.12em}
+.hero-sub{margin-top:1rem;font-size:1.08rem;max-width:52ch;color:#0d3f47}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem;align-items:center}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
+.chip{display:inline-flex;align-items:center;gap:.45em;background:rgba(255,255,255,.85);border-radius:999px;padding:.45em 1em;font-weight:600;font-size:.85rem;color:var(--laut-tua)}
+.chip svg{flex:none}
+.gratis-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.8rem 1.6rem;position:relative;border-top:8px solid var(--matahari)}
+.gratis-card .stamp{font-family:var(--font-display);font-weight:800;font-size:clamp(2.4rem,6vw,3.2rem);color:var(--senja);letter-spacing:.02em;line-height:1;transform:rotate(-2deg);display:inline-block}
+.gratis-card p{margin-top:.6rem;font-weight:600;color:var(--laut-tua)}
+.gratis-card .kuota{margin-top:1rem;background:var(--pasir);border-radius:var(--radius-s);padding:.9rem 1rem;font-size:.92rem}
+.gratis-card .kuota strong{color:var(--senja-tua)}
+.gratis-card ul{list-style:none;margin-top:1rem;display:grid;gap:.45rem;font-size:.9rem}
+.gratis-card li{padding-left:1.5em;position:relative}
+.gratis-card li::before{content:"✓";position:absolute;left:0;color:var(--laut);font-weight:800}
+.wave{display:block;width:100%;height:70px;margin-top:3rem}
+@media(min-width:900px){.wave{height:110px}}
+
+/* TENTANG */
+.tentang{background:var(--langit);padding:4rem 0 3rem}
+.tentang-grid{display:grid;gap:2.5rem}
+@media(min-width:940px){.tentang-grid{grid-template-columns:.9fr 1.1fr;align-items:start}}
+.tentang-desc{font-size:1.05rem;color:#2c4f56;margin-top:1rem}
+.benefit-grid{display:grid;gap:1rem}
+@media(min-width:560px){.benefit-grid{grid-template-columns:1fr 1fr}}
+.benefit{background:#fff;border-radius:var(--radius-s);padding:1.2rem 1.2rem 1.3rem;box-shadow:0 4px 14px rgba(8,76,86,.08);border-left:5px solid var(--laut);transition:transform .18s ease,box-shadow .18s ease}
+.benefit:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(8,76,86,.14)}
+.benefit:nth-child(2n){border-left-color:var(--senja)}
+.benefit .ikon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--langit);margin-bottom:.7rem;font-size:1.3rem}
+.benefit h3{font-size:1.06rem;color:var(--laut-tua)}
+.benefit p{font-size:.9rem;margin-top:.35rem;color:#3b5b61}
+
+/* DESTINASI SLIDER (pure CSS scroll-snap) */
+.destinasi{background:var(--pasir);padding:4rem 0}
+.slider-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1rem}
+.slider-hint{font-size:.85rem;font-weight:600;color:var(--senja-tua);display:inline-flex;align-items:center;gap:.4em}
+.slider-hint svg{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.slider{margin-top:2rem;display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.5rem .2rem 1.5rem;scrollbar-width:thin;scrollbar-color:var(--laut) transparent}
+.slider::-webkit-scrollbar{height:8px}
+.slider::-webkit-scrollbar-thumb{background:var(--laut);border-radius:999px}
+.slider::-webkit-scrollbar-track{background:rgba(11,110,123,.12);border-radius:999px}
+.slide{scroll-snap-align:center;flex:0 0 86%;max-width:340px;background:#fff;border-radius:var(--radius);box-shadow:0 6px 20px rgba(8,76,86,.1);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease}
+@media(min-width:640px){.slide{flex-basis:46%}}
+@media(min-width:960px){.slide{flex-basis:31%}}
+.slide:hover{transform:translateY(-6px)}
+.slide-img{width:100%;height:190px;object-fit:cover}
+.slide-body{padding:1.2rem 1.3rem 1.4rem;flex:1;display:flex;flex-direction:column}
+.slide-no{align-self:flex-start;background:var(--laut);color:#fff;font-family:var(--font-display);font-weight:800;font-size:.85rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;margin-bottom:.6rem}
+.slide:nth-child(2n) .slide-no{background:var(--senja)}
+.slide-body .lokasi{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--senja-tua)}
+.slide-body h3{font-size:1.15rem;color:var(--laut-tua);margin-top:.2rem}
+.slide-body p{font-size:.9rem;margin-top:.4rem;color:#3b5b61}
+
+/* JALUR SELEKSI (interaktif via radio tabs, pure CSS) */
+.jalur{background:var(--langit);padding:4rem 0}
+.tab-radios{position:absolute;opacity:0;pointer-events:none}
+.tab-nav{display:flex;gap:.6rem;margin-top:2rem;flex-wrap:wrap}
+.tab-label{cursor:pointer;font-family:var(--font-display);font-weight:700;font-size:1rem;padding:.7em 1.4em;border-radius:999px;background:#fff;color:var(--laut-tua);border:2px solid rgba(11,110,123,.2);transition:all .16s ease;user-select:none}
+.tab-label:hover{border-color:var(--laut)}
+.tab-panel{display:none;margin-top:1.6rem;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.8rem 1.7rem;border-top:6px solid var(--matahari);animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#jalur-gb:checked ~ .tab-nav label[for="jalur-gb"],
+#jalur-umum:checked ~ .tab-nav label[for="jalur-umum"]{background:var(--laut);color:#fff;border-color:var(--laut)}
+#jalur-gb:checked ~ #panel-gb{display:block}
+#jalur-umum:checked ~ #panel-umum{display:block}
+.jalur-panel-title{font-size:1.3rem;color:var(--laut-tua);display:flex;align-items:center;gap:.5em}
+.jalur-panel-title .em{font-size:1.5rem}
+.jalur-panel p{margin-top:.7rem;color:#3b5b61;font-size:.98rem}
+.jalur-steps{list-style:none;margin-top:1rem;display:grid;gap:.6rem}
+.jalur-steps li{display:flex;gap:.7em;align-items:flex-start;font-size:.96rem}
+.jalur-steps .cek{flex:none;width:24px;height:24px;border-radius:50%;background:var(--laut);color:#fff;font-size:.8rem;font-weight:800;display:grid;place-items:center;margin-top:.1em}
+
+/* KUOTA STATS */
+.stat-grid{margin-top:2rem;display:grid;gap:1rem}
+@media(min-width:640px){.stat-grid{grid-template-columns:repeat(3,1fr)}}
+.stat{background:#fff;border-radius:var(--radius-s);padding:1.4rem 1.2rem;text-align:center;box-shadow:0 4px 14px rgba(8,76,86,.08);border-bottom:5px solid var(--matahari)}
+.stat:nth-child(1){border-bottom-color:var(--senja)}
+.stat:nth-child(2){border-bottom-color:var(--biru)}
+.stat:nth-child(3){border-bottom-color:var(--hijau)}
+.stat .num{font-family:var(--font-display);font-weight:800;font-size:2.6rem;line-height:1;color:var(--laut-tua)}
+.stat .lbl{margin-top:.4rem;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#5a747a}
+
+/* TIMELINE */
+.timeline{background:var(--laut-tua);color:#fff;padding:4rem 0;position:relative;overflow:hidden}
+.timeline .eyebrow{background:rgba(255,255,255,.12);color:var(--matahari)}
+.timeline .section-title{color:#fff}
+.timeline .section-lead{color:#cbe9ee}
+.tl{margin-top:2.4rem;display:grid;gap:1.4rem;position:relative}
+.tl::before{content:"";position:absolute;top:8px;bottom:8px;left:22px;border-left:3px dotted rgba(255,201,60,.5)}
+.tl-item{display:grid;grid-template-columns:48px 1fr;gap:1rem;position:relative}
+.tl-no{width:48px;height:48px;border-radius:50%;flex:none;z-index:1;background:var(--matahari);color:var(--laut-tua);font-family:var(--font-display);font-weight:800;font-size:1.2rem;display:grid;place-items:center;box-shadow:0 0 0 6px var(--laut-tua)}
+.tl-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:var(--radius-s);padding:1.2rem 1.3rem}
+.tl-card h3{color:var(--matahari);font-size:1.15rem}
+.tl-tag{display:inline-block;margin-top:.5rem;background:var(--senja);color:#fff;font-weight:700;font-size:.82rem;padding:.25em .9em;border-radius:999px}
+.tl-sub{margin-top:.9rem;display:grid;gap:.5rem}
+.tl-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;font-size:.9rem;color:#dff2f5}
+.tl-date{background:rgba(255,201,60,.16);color:var(--matahari);font-weight:700;padding:.2em .7em;border-radius:8px;font-size:.82rem;white-space:nowrap}
+.tl-beasiswa{margin-top:.9rem;background:rgba(255,201,60,.12);border:1.5px dashed var(--matahari);border-radius:10px;padding:.7rem .9rem;font-size:.9rem}
+.tl-beasiswa strong{color:var(--matahari)}
+.gb-note{margin-top:1rem;background:rgba(255,255,255,.06);border-radius:10px;padding:.8rem 1rem;font-size:.86rem;color:#cbe9ee}
+
+/* BATCH */
+.seleksi{background:var(--pasir);padding:4rem 0}
+.batch-grid{margin-top:2.2rem;display:grid;gap:1rem}
+@media(min-width:640px){.batch-grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}}
+.batch{background:#fff;border-radius:var(--radius-s);padding:1.3rem;box-shadow:0 4px 14px rgba(8,76,86,.08);border-top:5px solid var(--laut);transition:transform .16s ease}
+.batch:hover{transform:translateY(-4px)}
+.batch h3{color:var(--laut-tua);font-size:1.1rem}
+.batch p{font-size:.88rem;margin-top:.4rem;color:#3b5b61}
+.batch p strong{color:var(--senja-tua)}
+.jadwal-daftar{margin-top:2rem;background:#fff;border:1.5px dashed var(--senja);border-radius:var(--radius-s);padding:1.1rem 1.3rem;font-size:.95rem}
+.jadwal-daftar strong{color:var(--senja-tua)}
+
+/* FAQ / KETENTUAN (accordion via details) */
+.info{background:var(--langit);padding:4rem 0}
+.acc{margin-top:2rem;display:grid;gap:.9rem}
+.acc details{background:#fff;border-radius:var(--radius-s);box-shadow:0 4px 14px rgba(8,76,86,.08);overflow:hidden}
+.acc summary{cursor:pointer;list-style:none;padding:1.1rem 1.3rem;font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--laut-tua);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-size:1.5rem;color:var(--senja);transition:transform .2s ease;flex:none}
+.acc details[open] summary::after{transform:rotate(45deg)}
+.acc .acc-body{padding:0 1.3rem 1.2rem;font-size:.95rem;color:#3b5b61}
+.acc .acc-body ul{margin:.6rem 0 0 1.1rem;display:grid;gap:.4rem}
+
+/* SYARAT + TITIK KUMPUL */
+.info-grid{display:grid;gap:1.4rem;margin-top:1.4rem}
+@media(min-width:880px){.info-grid{grid-template-columns:1.1fr .9fr}}
+.kartu{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.7rem 1.6rem}
+.kartu h3{font-size:1.3rem;color:var(--laut-tua)}
+.syarat-list{list-style:none;margin-top:1rem;display:grid;gap:.65rem}
+.syarat-list li{display:flex;gap:.7em;align-items:flex-start;font-size:.96rem}
+.syarat-list .cek{flex:none;width:24px;height:24px;border-radius:50%;background:var(--laut);color:#fff;font-size:.8rem;font-weight:800;display:grid;place-items:center;margin-top:.1em}
+.titik-list{margin-top:1rem;display:grid;gap:.7rem}
+.titik{display:flex;gap:.8em;align-items:flex-start;background:var(--pasir);border-radius:var(--radius-s);padding:.9rem 1rem;font-size:.95rem;font-weight:600}
+.titik .pin{flex:none;color:var(--senja);font-size:1.1rem;line-height:1.4}
+.kartu .catatan{margin-top:1.1rem;font-size:.85rem;color:#5a747a}
+
+/* LEADERBOARD */
+.papan{background:var(--pasir);padding:4rem 0}
+.papan-tabel{margin-top:2rem;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.papan-head,.papan-baris{display:grid;grid-template-columns:56px 1fr 90px;gap:.6rem;align-items:center;padding:.85rem 1.1rem}
+@media(min-width:640px){.papan-head,.papan-baris{grid-template-columns:64px 1.2fr 1fr 110px}}
+.papan-head{background:var(--laut);color:#fff;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.papan-head .kolom-sekolah{display:none}
+@media(min-width:640px){.papan-head .kolom-sekolah{display:block}}
+.papan-baris{border-top:1px solid #eef4f5;font-size:.95rem}
+.papan-baris:nth-child(odd){background:#fbfdfe}
+.papan-baris .rank{font-family:var(--font-display);font-weight:800;color:var(--senja);font-size:1.05rem}
+.papan-baris .nama{font-weight:700;color:var(--laut-tua)}
+.papan-baris .sekolah{display:none;color:#5a747a;font-size:.88rem}
+@media(min-width:640px){.papan-baris .sekolah{display:block}}
+.papan-baris .poin{justify-self:end;background:var(--langit);border-radius:999px;padding:.25em .9em;font-weight:800;color:var(--laut);font-size:.88rem}
+.papan-cta{margin-top:1.4rem;text-align:center}
+
+/* CTA AKHIR */
+.ajak{background:radial-gradient(50rem 24rem at 15% 0%,rgba(255,201,60,.35),transparent 60%),linear-gradient(135deg,var(--senja) 0%,var(--senja-tua) 100%);color:#fff;padding:4.5rem 0;text-align:center}
+.ajak h2{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;text-wrap:balance}
+.ajak p{margin:.9rem auto 0;max-width:54ch;font-size:1.05rem;color:#fff3e8}
+.ajak .btn{margin-top:1.8rem}
+
+/* FOOTER */
+footer{background:var(--laut-tua);color:#bfe3e9;padding:2.5rem 0;font-size:.9rem}
+.foot-grid{display:grid;gap:1.4rem}
+@media(min-width:760px){.foot-grid{grid-template-columns:1.4fr 1fr;align-items:center}}
+.foot-grid strong{color:#fff;font-family:var(--font-display);font-size:1.05rem}
+.foot-kontak{display:flex;flex-wrap:wrap;gap:1rem}
+.foot-kontak a{text-decoration:none;font-weight:600;color:var(--matahari)}
+.foot-kontak a:hover{text-decoration:underline}
+.foot-bawah{margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.14);font-size:.8rem;color:#8fc4cd}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#atas" aria-label="Kembali ke atas">
+      <span class="brand-sun" aria-hidden="true"></span>
+      <span>
+        <strong>Youth Character Summit</strong>
+        <small>Outing Class Inklusi</small>
+      </span>
+    </a>
+    <nav class="topnav" aria-label="Navigasi utama">
+      <a class="nav-link" href="#destinasi">Destinasi</a>
+      <a class="nav-link" href="#jalur">Jalur Seleksi</a>
+      <a class="nav-link" href="#timeline">Timeline</a>
+      <a class="nav-link" href="{{links.leaderboard}}">Leaderboard</a>
+      <a class="nav-link" href="{{links.login}}">Masuk</a>
+      <a class="btn btn-utama" href="{{links.register}}">Daftar</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="atas">
+  <div class="hero-video" aria-hidden="true">
+    <iframe src="https://www.youtube.com/embed/unCD3pcd0FA?autoplay=1&mute=1&loop=1&playlist=unCD3pcd0FA&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0" title="Video latar Bali" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+  </div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-badge"><span class="dot" aria-hidden="true"></span> Bali · 11 Hari · Tatap Muka</span>
+      <h1>{{event.name}}: liburan seru sambil <span class="sorot">membangun karakter</span> di Bali!</h1>
+      <p class="hero-sub">Jelajahi alam, budaya, dan aksi sosial bersama pelajar dari seluruh Indonesia — lalu tutup tahun dengan pesta kembang api Tahun Baru 2027 di Garuda Wisnu Kencana.</p>
+      <div class="hero-cta">
+        <a class="btn btn-utama" href="{{links.register}}">Daftar sekarang — gratis</a>
+        <a class="btn btn-garis" href="#destinasi">Lihat destinasi</a>
+      </div>
+      <div class="hero-meta">
+        <span class="chip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+          {{event.startDate}} – {{event.endDate}}
+        </span>
+        <span class="chip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
+          {{event.location}}
+        </span>
+      </div>
+    </div>
+    <aside class="gratis-card" aria-label="Info program gratis">
+      <span class="stamp">GRATIS!</span>
+      <p>Untuk {{event.quota}} pelajar terpilih se-Indonesia — plus kesempatan memenangkan hadiah menarik hingga 4 unit handphone baru.</p>
+      <div class="kuota">Peserta lolos diumumkan <strong>setiap bulan</strong>. Makin cepat daftar, makin besar peluangmu!</div>
+      <ul>
+        <li>Berangkat bersama dari titik kumpul di Semarang</li>
+        <li>Kegiatan inklusif bersama sahabat SLBN Buleleng</li>
+        <li>Malam Tahun Baru 2027 di GWK, Bali</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="hero-sea" aria-hidden="true">
+    <div class="wave-layer w1"></div>
+    <div class="wave-layer w2"></div>
+    <div class="wave-layer w3"></div>
+  </div>
+</section>
+
+<section class="tentang">
+  <div class="wrap tentang-grid">
+    <div>
+      <span class="eyebrow">Tentang program</span>
+      <h2 class="section-title">Belajar dari alam, budaya, dan sesama</h2>
+      <p class="tentang-desc">{{event.description}}</p>
+      <p class="tentang-desc">Melalui rangkaian kegiatan ini, peserta dibentuk menjadi pribadi yang tangguh, peduli, berwawasan luas, dan siap memberi dampak positif bagi sesama dan lingkungan.</p>
+    </div>
+    <div class="benefit-grid">
+      <div class="benefit"><div class="ikon" aria-hidden="true">🎓</div><h3>Beasiswa</h3><p>Berpotensi mendapatkan beasiswa bagi peserta berprestasi.</p></div>
+      <div class="benefit"><div class="ikon" aria-hidden="true">📜</div><h3>Sertifikat &amp; pengembangan diri</h3><p>Diberikan kepada peserta yang aktif dalam seluruh rangkaian kegiatan.</p></div>
+      <div class="benefit"><div class="ikon" aria-hidden="true">🤟</div><h3>Keterampilan &amp; inklusi</h3><p>Belajar bahasa isyarat, menumbuhkan empati, dan semangat inklusi.</p></div>
+      <div class="benefit"><div class="ikon" aria-hidden="true">🤝</div><h3>Relasi &amp; kolaborasi</h3><p>Bertemu dan berkolaborasi dengan pelajar dari berbagai sekolah di Indonesia.</p></div>
+      <div class="benefit"><div class="ikon" aria-hidden="true">🏆</div><h3>Pengalaman berharga</h3><p>Pengalaman tak terlupakan yang membentuk karakter, percaya diri, dan jiwa kepemimpinan.</p></div>
+      <div class="benefit"><div class="ikon" aria-hidden="true">🌏</div><h3>Duta Universitas STEKOM</h3><p>Belajar langsung dari masyarakat Bali, mengabdi, berbagi, dan menginspirasi sesama.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="destinasi" id="destinasi">
+  <div class="wrap">
+    <div class="slider-head">
+      <div>
+        <span class="eyebrow">Rute perjalanan</span>
+        <h2 class="section-title">7 destinasi, satu petualangan</h2>
+        <p class="section-lead">Geser ke samping untuk menjelajahi setiap pemberhentian — dari keberangkatan di Semarang hingga malam pergantian tahun di Bali.</p>
+      </div>
+      <span class="slider-hint">Geser
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </span>
+    </div>
+
+    <div class="slider">
+      <article class="slide">
+        <img class="slide-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=70" alt="Pulau Gili Ketapang">
+        <div class="slide-body"><span class="slide-no">1</span><span class="lokasi">Probolinggo</span><h3>Pulau Gili Ketapang</h3><p>Laboratorium alam: ekosistem laut, terumbu karang, ikan Nemo, dan dampak perubahan iklim lewat snorkeling edukatif.</p></div>
+      </article>
+      <article class="slide">
+        <img class="slide-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=70" alt="Pantai Pasir Putih Gerokgak">
+        <div class="slide-body"><span class="slide-no">2</span><span class="lokasi">Teluk Banyuwedang, Bali</span><h3>Pantai Pasir Putih</h3><p>Air laut tenang dan jernih berbentuk danau — sarana melatih kemandirian, kerja sama, dan kepedulian lingkungan.</p></div>
+      </article>
+      <article class="slide">
+        <img class="slide-img" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=70" alt="Bukit Batu Kursi">
+        <div class="slide-body"><span class="slide-no">3</span><span class="lokasi">Buleleng, Bali</span><h3>Bukit Batu Kursi</h3><p>Bukit yang berubah warna sesuai musim — hijau saat hujan, cokelat saat kemarau. Media belajar geografi dan adaptasi flora pesisir.</p></div>
+      </article>
+      <article class="slide">
+        <img class="slide-img" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=70" alt="Gunung Sanghyang">
+        <div class="slide-body"><span class="slide-no">4</span><span class="lokasi">Bali</span><h3>Gunung Sanghyang</h3><p>Mendaki melewati hutan hujan tropis yang masih asri sambil belajar keanekaragaman hayati flora langka.</p></div>
+      </article>
+      <article class="slide">
+        <img class="slide-img" src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=70" alt="Bedugul, Pura Ulun Danu Beratan">
+        <div class="slide-body"><span class="slide-no">5</span><span class="lokasi">Bedugul, Bali</span><h3>Bedugul — Ulun Danu Beratan</h3><p>Pura suci Hindu di tengah danau, sumber irigasi utama sistem Subak — sekaligus cermin toleransi beragama yang kuat.</p></div>
+      </article>
+      <article class="slide">
+        <img class="slide-img" src="https://images.unsplash.com/photo-1573790387438-4da905039392?auto=format&fit=crop&w=800&q=70" alt="Garuda Wisnu Kencana">
+        <div class="slide-body"><span class="slide-no">6</span><span class="lokasi">Garuda Wisnu Kencana, Bali</span><h3>Malam Tahun Baru di GWK</h3><p>Salah satu taman budaya terbesar di dunia. Rayakan pergantian Tahun Baru 2027 dengan musik dan pesta kembang api.</p></div>
+      </article>
+      <article class="slide">
+        <img class="slide-img" src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?auto=format&fit=crop&w=800&q=70" alt="Pelatihan inklusi SLBN Buleleng">
+        <div class="slide-body"><span class="slide-no">+</span><span class="lokasi">SLBN Buleleng &amp; sekolah mitra</span><h3>Pelatihan bahasa isyarat &amp; kesiapan kerja</h3><p>Belajar kosakata dasar bahasa isyarat, lalu berinteraksi langsung bersama penyandang disabilitas dalam ruang setara.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="jalur" id="jalur">
+  <div class="wrap">
+    <span class="eyebrow">Cara lolos</span>
+    <h2 class="section-title">Dua jalur kelulusan peserta</h2>
+    <p class="section-lead">Ada dua pintu menuju Bali. Ketuk salah satu tab untuk melihat detailnya.</p>
+
+    <input type="radio" name="jalur" id="jalur-gb" class="tab-radios" checked>
+    <input type="radio" name="jalur" id="jalur-umum" class="tab-radios">
+
+    <div class="tab-nav">
+      <label class="tab-label" for="jalur-gb">⭐ Golden Buzzer</label>
+      <label class="tab-label" for="jalur-umum">📝 Seleksi Umum</label>
+    </div>
+
+    <div class="tab-panel jalur-panel" id="panel-gb">
+      <h3 class="jalur-panel-title"><span class="em">⭐</span> Jalur Golden Buzzer</h3>
+      <p>Peserta yang sangat beruntung karena terpilih langsung dan mutlak oleh panitia/juri — dikarenakan memiliki sisi keunggulan yang unik, inspiratif, spesial, dan bisa menjadi role model yang baik bagi banyak orang.</p>
+      <ul class="jalur-steps">
+        <li><span class="cek" aria-hidden="true">5</span> Golden Buzzer bulan Juli</li>
+        <li><span class="cek" aria-hidden="true">10</span> Golden Buzzer bulan Agustus</li>
+        <li><span class="cek" aria-hidden="true">15</span> Golden Buzzer bulan September</li>
+        <li><span class="cek" aria-hidden="true">20</span> Golden Buzzer bulan Oktober</li>
+      </ul>
+      <div class="tl-beasiswa" style="color:#3b5b61;background:var(--pasir);border-color:var(--senja)">Total <strong style="color:var(--senja-tua)">50 peserta</strong> lolos langsung via Golden Buzzer.</div>
+    </div>
+
+    <div class="tab-panel jalur-panel" id="panel-umum">
+      <h3 class="jalur-panel-title"><span class="em">📝</span> Jalur Seleksi Umum</h3>
+      <p>Peserta yang masuk 200 semi finalis akan langsung mengikuti rangkaian seleksi lanjutan untuk memperebutkan kursi finalis:</p>
+      <ul class="jalur-steps">
+        <li><span class="cek" aria-hidden="true">1</span> Pembuatan Twibbon &amp; Video Kampanye contoh #AksiBaik di sekolah</li>
+        <li><span class="cek" aria-hidden="true">2</span> Seleksi tes kuesioner dipandu via online meeting Zoom</li>
+        <li><span class="cek" aria-hidden="true">3</span> Penilaian &amp; penjurian panitia sebelum pengumuman finalis</li>
+      </ul>
+      <div class="tl-beasiswa" style="color:#3b5b61;background:var(--pasir);border-color:var(--laut)">Total <strong style="color:var(--laut)">100 peserta</strong> lolos melalui seleksi umum.</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat"><div class="num">50</div><div class="lbl">Lolos via Golden Buzzer</div></div>
+      <div class="stat"><div class="num">100</div><div class="lbl">Lolos Seleksi Umum</div></div>
+      <div class="stat"><div class="num">150</div><div class="lbl">Total Peserta Lolos</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline" id="timeline">
+  <div class="wrap">
+    <span class="eyebrow">Timeline kegiatan</span>
+    <h2 class="section-title">Main &amp; menangkan — tahap demi tahap</h2>
+    <p class="section-lead">Ikuti setiap tahapan sesuai jadwal. Pendaftar yang belum lolos di satu bulan otomatis diikutkan pada pemilihan bulan berikutnya.</p>
+
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-no">1</div>
+        <div class="tl-card">
+          <h3>Start Pendaftaran</h3>
+          <span class="tl-tag">Dibuka 10 Juli 2026</span>
+          <div class="tl-sub">
+            <div class="tl-row"><span class="tl-date">10 – 31 Juli 2026</span> Pemilihan 5 Golden Buzzer Juli</div>
+            <div class="tl-row"><span class="tl-date">1 – 30 Agustus 2026</span> Pemilihan 10 Golden Buzzer Agustus · Semi Finalis Grup A</div>
+            <div class="tl-row"><span class="tl-date">1 – 29 September 2026</span> Pemilihan 15 Golden Buzzer September · Semi Finalis Grup B</div>
+            <div class="tl-row"><span class="tl-date">1 – 30 Oktober 2026</span> Pemilihan 20 Golden Buzzer Oktober · Semi Finalis Grup C</div>
+          </div>
+          <div class="gb-note">Golden Buzzer: peserta terpilih langsung &amp; mutlak oleh panitia/juri karena keunggulan unik, inspiratif, dan spesial yang bisa menjadi role model.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-no">2</div>
+        <div class="tl-card">
+          <h3>Pengumuman 200 Semi Finalis</h3>
+          <div class="tl-sub">
+            <div class="tl-row"><span class="tl-date">31 Agustus 2026</span> Grup A</div>
+            <div class="tl-row"><span class="tl-date">30 September 2026</span> Grup B</div>
+            <div class="tl-row"><span class="tl-date">31 Oktober 2026</span> Grup C</div>
+          </div>
+          <div class="tl-beasiswa"><strong>Beasiswa Rp3.000.000</strong> — untuk seluruh semi finalis.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-no">3</div>
+        <div class="tl-card">
+          <h3>Periode Penilaian &amp; Penjurian Panitia</h3>
+          <span class="tl-tag">1 – 14 November 2026</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-no">4</div>
+        <div class="tl-card">
+          <h3>Pengumuman 100 Finalis Peserta YCS 2026</h3>
+          <span class="tl-tag">16 November 2026</span>
+          <div class="tl-beasiswa"><strong>Beasiswa Rp5.000.000</strong> — untuk seluruh finalis.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seleksi" id="seleksi">
+  <div class="wrap">
+    <span class="eyebrow">Jadwal seleksi</span>
+    <h2 class="section-title">Pengumuman peserta lolos, tiap bulan</h2>
+    <p class="section-lead">Kuota dibagi dalam beberapa gelombang pengumuman. Daftar lebih awal, peluangmu lebih besar.</p>
+
+    <div class="batch-grid" data-list="batches">
+      <div class="batch" data-item>
+        <h3>{{item.name}}</h3>
+        <p>Pengumuman: {{item.announceDate}}</p>
+        <p><strong>Kuota: {{item.quota}} peserta</strong></p>
+      </div>
+    </div>
+
+    <div class="jadwal-daftar">
+      📅 Pendaftaran dibuka <strong>{{event.registrationOpenAt}}</strong> dan ditutup <strong>{{event.registrationCloseAt}}</strong> — atau lebih cepat saat kuota pendaftar terpenuhi. Jangan tunggu gelombang terakhir!
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <div class="wrap">
+    <span class="eyebrow">Info penting</span>
+    <h2 class="section-title">Ketentuan &amp; pertanyaan umum</h2>
+    <div class="acc">
+      <details open>
+        <summary>Ketentuan beasiswa</summary>
+        <div class="acc-body">Jika peserta mendapatkan 2 (dua) beasiswa atau lebih dari program ini, maka beasiswa yang dapat digunakan adalah beasiswa yang terakhir dikeluarkan (beasiswa dengan nominal terbesar).</div>
+      </details>
+      <details>
+        <summary>Penjelasan Grup A, B, dan C</summary>
+        <div class="acc-body">Penyebutan Grup A, Grup B, dan Grup C hanya merupakan penamaan fase pengumuman. Peserta yang lolos pada setiap fase dipilih dari pendaftar bulan berjalan serta pendaftar sebelumnya yang belum lolos — sehingga setiap pendaftar memiliki kesempatan yang sama untuk terpilih tanpa dirugikan oleh waktu pendaftaran.</div>
+      </details>
+      <details>
+        <summary>Seleksi lanjutan semi finalis</summary>
+        <div class="acc-body">Peserta yang masuk 200 semi finalis langsung mengikuti rangkaian seleksi lanjutan:
+          <ul>
+            <li>Pembuatan Twibbon &amp; Video Kampanye contoh #AksiBaik di sekolah</li>
+            <li>Seleksi tes kuesioner dipandu via online meeting Zoom</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="info-grid">
+      <div class="kartu">
+        <h3>Siapa yang boleh ikut?</h3>
+        <ul class="syarat-list">
+          <li><span class="cek" aria-hidden="true">✓</span> Pelajar SMA / SMK / MA</li>
+          <li><span class="cek" aria-hidden="true">✓</span> Kelas 10, 11, atau 12 boleh ikut daftar</li>
+          <li><span class="cek" aria-hidden="true">✓</span> Tidak sedang sakit / punya penyakit bawaan</li>
+          <li><span class="cek" aria-hidden="true">✓</span> Berkarakter baik</li>
+          <li><span class="cek" aria-hidden="true">✓</span> Diizinkan oleh orang tua</li>
+        </ul>
+        <p class="catatan">Kegiatan berlangsung {{event.startDate}} hingga {{event.endDate}} di {{event.location}}, termasuk kunjungan ke SMKN 1 Gerokgak, SLBN Buleleng, dan SMKN Banjar Bedugul.</p>
+      </div>
+
+      <div class="kartu">
+        <h3>Titik kumpul keberangkatan</h3>
+        <div class="titik-list" data-list="meetingPoints">
+          <div class="titik" data-item>
+            <span class="pin" aria-hidden="true">📍</span>
+            <span>{{item.value}}</span>
+          </div>
+        </div>
+        <p class="catatan">Rombongan berangkat bersama dari Universitas STEKOM Kampus Pusat, Jl. Majapahit 605 Semarang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="papan" id="leaderboard">
+  <div class="wrap">
+    <span class="eyebrow">Ajak temanmu</span>
+    <h2 class="section-title">Papan peringkat referral</h2>
+    <p class="section-lead">Ajak teman sekolahmu ikut mendaftar — pengajak terbanyak berpeluang memenangkan hadiah menarik hingga 4 unit handphone baru!</p>
+
+    <div class="papan-tabel">
+      <div class="papan-head">
+        <span>Rank</span><span>Nama</span><span class="kolom-sekolah">Sekolah</span><span>Referral</span>
+      </div>
+      <div data-list="leaderboard">
+        <div class="papan-baris" data-item>
+          <span class="rank">#{{item.rank}}</span>
+          <span class="nama">{{item.fullname}}</span>
+          <span class="sekolah">{{item.school}}</span>
+          <span class="poin">{{item.referralValidCount}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="papan-cta">
+      <a class="btn btn-garis" href="{{links.leaderboard}}">Lihat leaderboard lengkap</a>
+    </div>
+  </div>
+</section>
+
+<section class="ajak">
+  <div class="wrap">
+    <h2>Yuk, bergabung dan wujudkan pengalaman belajar tak terlupakan!</h2>
+    <p>Gratis untuk {{event.quota}} pelajar terpilih. Pendaftaran ditutup {{event.registrationCloseAt}} atau saat kuota pendaftar terpenuhi.</p>
+    <a class="btn btn-terang" href="{{links.register}}">Daftar sekarang</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <strong>{{event.name}}</strong>
+        <p>Program pengembangan karakter, pembelajaran kontekstual, dan pengabdian masyarakat oleh Universitas STEKOM.</p>
+      </div>
+      <div class="foot-kontak">
+        <a href="https://wa.me/6288885555559">CS: 08888-5555-59</a>
+        <a href="https://pmb.stekom.ac.id">pmb.stekom.ac.id</a>
+        <a href="https://www.instagram.com/universitasstekom">@universitasstekom</a>
+      </div>
+    </div>
+    <p class="foot-bawah">© 2026 Universitas STEKOM · Youth Character Summit — Outing Class Inklusi. Sudah punya akun? <a href="{{links.login}}" style="color:var(--matahari)">Masuk di sini</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
