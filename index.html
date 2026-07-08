@@ -59,39 +59,41 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.15}
 @media(min-width:820px){.topnav .nav-link{display:inline-block}}
 
 /* HERO */
-.hero{position:relative;overflow:hidden;padding:4.2rem 0 170px;
+.hero{position:relative;overflow:hidden;padding:4.2rem 0 210px;
   background:linear-gradient(180deg,#BDEDF3 0%,#8ED8E2 55%,#55B9C9 100%);
   background-size:100% 300%;animation:seaShift 16s ease-in-out infinite}
+@media(max-width:640px){
+  .hero{padding:2.6rem 0 150px}
+  .hero-sea{height:130px}
+}
 @keyframes seaShift{0%,100%{background-position:0 0}50%{background-position:0 22%}}
-/* VIDEO BACKGROUND (iframe YouTube, opacity 50%) */
-.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+/* VIDEO BACKGROUND (iframe YouTube utuh 16:9, tanpa crop → tidak terpotong) */
+.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.hero-video .yt-frame{position:relative;width:100%;max-width:1280px;aspect-ratio:16/9}
 .hero-video iframe{
-  position:absolute;top:50%;left:50%;
-  /* menutup penuh area hero dengan sedikit crop untuk sembunyikan teks YouTube */
-  width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;
-  transform:translate(-50%,-50%) scale(1.15);
+  position:absolute;inset:0;width:100%;height:100%;
   opacity:.5;border:0;
 }
-/* di mobile: crop lebih kecil supaya isi video tidak terpotong berlebihan */
-@media(max-width:640px){
-  .hero-video iframe{transform:translate(-50%,-50%) scale(1.05)}
+/* pastikan video selalu menutupi tinggi hero juga (isi sisa dengan gradient laut di .hero) */
+@media(min-aspect-ratio:16/9){
+  .hero-video .yt-frame{width:auto;height:100%;aspect-ratio:16/9}
 }
 /* overlay agar teks tetap jelas terbaca di atas video */
 .hero-video::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(189,237,243,.55) 0%,rgba(142,216,226,.45) 55%,rgba(85,185,201,.55) 100%)}
+  background:linear-gradient(180deg,rgba(189,237,243,.55) 0%,rgba(142,216,226,.45) 55%,rgba(85,185,201,.6) 100%)}
 /* cahaya matahari lembut yang berdenyut */
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(60rem 30rem at 85% -10%,rgba(255,201,60,.45),transparent 60%);
   animation:sunGlow 9s ease-in-out infinite}
 @keyframes sunGlow{0%,100%{opacity:.75}50%{opacity:1}}
 /* lapisan ombak bergerak di dasar hero (SVG inline, ringan, no JS) — pemisah tegas */
-.hero-sea{position:absolute;left:0;right:0;bottom:-1px;height:150px;z-index:3;pointer-events:none;overflow:hidden}
-@media(min-width:900px){.hero-sea{height:190px}}
+.hero-sea{position:absolute;left:0;right:0;bottom:-1px;height:200px;z-index:3;pointer-events:none;overflow:hidden}
+@media(min-width:900px){.hero-sea{height:250px}}
 .hero-sea .wave-layer{position:absolute;left:0;bottom:0;width:200%;height:100%;
   background-repeat:repeat-x;background-position:0 bottom;background-size:50% 100%}
-.hero-sea .w1{opacity:.55;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C120,110 240,30 360,60 C480,90 600,40 720,70 L720,120 L0,120 Z' fill='%233FA7B8'/%3E%3C/svg%3E");animation:waveMove 11s linear infinite}
-.hero-sea .w2{opacity:.8;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,80 C150,40 300,110 450,75 C570,48 660,90 720,78 L720,120 L0,120 Z' fill='%23BFEAF0'/%3E%3C/svg%3E\");animation:waveMove 8s linear infinite reverse}
-.hero-sea .w3{opacity:1;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,88 C180,58 320,120 480,90 C600,68 680,100 720,86 L720,120 L0,120 Z' fill='%23EAF8FA'/%3E%3C/svg%3E\");animation:waveMove 6s linear infinite}
+.hero-sea .w1{opacity:.6;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 160' preserveAspectRatio='none'%3E%3Cpath d='M0,90 C120,150 240,30 360,75 C480,120 600,40 720,90 L720,160 L0,160 Z' fill='%233FA7B8'/%3E%3C/svg%3E");animation:waveMove 11s linear infinite}
+.hero-sea .w2{opacity:.85;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 160' preserveAspectRatio='none'%3E%3Cpath d='M0,105 C150,45 300,150 450,100 C570,60 660,120 720,102 L720,160 L0,160 Z' fill='%23BFEAF0'/%3E%3C/svg%3E\");animation:waveMove 8s linear infinite reverse}
+.hero-sea .w3{opacity:1;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 160' preserveAspectRatio='none'%3E%3Cpath d='M0,118 C180,72 320,160 480,120 C600,88 680,132 720,114 L720,160 L0,160 Z' fill='%23EAF8FA'/%3E%3C/svg%3E\");animation:waveMove 6s linear infinite}
 @keyframes waveMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){
   .hero{animation:none}.hero::before{animation:none}
@@ -288,7 +290,9 @@ footer{background:var(--laut-tua);color:#bfe3e9;padding:2.5rem 0;font-size:.9rem
 
 <section class="hero" id="atas">
   <div class="hero-video" aria-hidden="true">
-    <iframe src="https://www.youtube.com/embed/unCD3pcd0FA?autoplay=1&mute=1&loop=1&playlist=unCD3pcd0FA&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&cc_load_policy=0&iv_load_policy=3&color=white" title="Video latar Bali" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+    <div class="yt-frame">
+      <iframe src="https://www.youtube.com/embed/unCD3pcd0FA?autoplay=1&mute=1&loop=1&playlist=unCD3pcd0FA&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&cc_load_policy=0&cc_lang_pref=none&iv_load_policy=3&hl=id&color=white" title="Video latar Bali" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+    </div>
   </div>
   <div class="wrap hero-grid">
     <div>
