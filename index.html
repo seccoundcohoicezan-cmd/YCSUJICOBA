@@ -68,19 +68,20 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.15}
 }
 @keyframes seaShift{0%,100%{background-position:0 0}50%{background-position:0 22%}}
 /* VIDEO BACKGROUND (iframe YouTube utuh 16:9, tanpa crop → tidak terpotong) */
-.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.hero-video .yt-frame{position:relative;width:100%;max-width:1280px;aspect-ratio:16/9}
+.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+/* frame video menempel ke atas, penuh lebar hero (tanpa ruang kosong kiri-kanan) */
+.hero-video .yt-frame{position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:100%;min-width:177.78vh;aspect-ratio:16/9}
 .hero-video iframe{
   position:absolute;inset:0;width:100%;height:100%;
   opacity:.5;border:0;
 }
-/* pastikan video selalu menutupi tinggi hero juga (isi sisa dengan gradient laut di .hero) */
-@media(min-aspect-ratio:16/9){
-  .hero-video .yt-frame{width:auto;height:100%;aspect-ratio:16/9}
+@media(max-width:640px){
+  .hero-video .yt-frame{top:-40px}
 }
 /* overlay agar teks tetap jelas terbaca di atas video */
 .hero-video::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(189,237,243,.55) 0%,rgba(142,216,226,.45) 55%,rgba(85,185,201,.6) 100%)}
+  background:linear-gradient(180deg,rgba(189,237,243,.5) 0%,rgba(142,216,226,.45) 55%,rgba(85,185,201,.6) 100%)}
 /* cahaya matahari lembut yang berdenyut */
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(60rem 30rem at 85% -10%,rgba(255,201,60,.45),transparent 60%);
