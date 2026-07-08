@@ -69,21 +69,19 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.15}
 @keyframes seaShift{0%,100%{background-position:0 0}50%{background-position:0 22%}}
 /* VIDEO BACKGROUND (iframe YouTube utuh 16:9, tanpa crop → tidak terpotong) */
 .hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-/* Video menutup PENUH area hero (cover). iframe dibuat lebih tinggi dari area & di-anchor
-   ke atas, sehingga bagian bawah frame (tempat subtitle) berada di luar area terlihat. */
-.hero-video .yt-frame{position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:100%;height:145%;min-width:177.78vh}
+/* frame video menempel ke atas, penuh lebar hero (tanpa ruang kosong kiri-kanan) */
+.hero-video .yt-frame{position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:100%;min-width:177.78vh;aspect-ratio:16/9}
 .hero-video iframe{
-  position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:100%;height:100%;min-width:100%;min-height:100%;
+  position:absolute;inset:0;width:100%;height:100%;
   opacity:.5;border:0;
 }
 @media(max-width:640px){
-  .hero-video .yt-frame{height:160%}
+  .hero-video .yt-frame{top:-40px}
 }
-/* penutup solid di 32% bawah hero → subtitle YouTube tertutup total */
+/* overlay agar teks tetap jelas terbaca di atas video */
 .hero-video::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(189,237,243,.5) 0%,rgba(142,216,226,.42) 40%,rgba(93,192,206,.7) 68%,rgba(85,185,201,.97) 88%,#55B9C9 100%)}
+  background:linear-gradient(180deg,rgba(189,237,243,.5) 0%,rgba(142,216,226,.45) 55%,rgba(85,185,201,.6) 100%)}
 /* cahaya matahari lembut yang berdenyut */
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(60rem 30rem at 85% -10%,rgba(255,201,60,.45),transparent 60%);
