@@ -59,7 +59,7 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.15}
 @media(min-width:820px){.topnav .nav-link{display:inline-block}}
 
 /* HERO */
-.hero{position:relative;overflow:hidden;padding:4.2rem 0 200px;
+.hero{position:relative;overflow:hidden;padding:4.2rem 0 170px;
   background:linear-gradient(180deg,#BDEDF3 0%,#8ED8E2 55%,#55B9C9 100%);
   background-size:100% 300%;animation:seaShift 16s ease-in-out infinite}
 @keyframes seaShift{0%,100%{background-position:0 0}50%{background-position:0 22%}}
@@ -67,10 +67,14 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.15}
 .hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .hero-video iframe{
   position:absolute;top:50%;left:50%;
-  /* diperbesar 135% agar judul (atas) & caption (bawah) YouTube ter-crop keluar area */
-  width:135vw;height:75.94vw;min-height:135%;min-width:240vh;
-  transform:translate(-50%,-50%);
+  /* menutup penuh area hero dengan sedikit crop untuk sembunyikan teks YouTube */
+  width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;
+  transform:translate(-50%,-50%) scale(1.15);
   opacity:.5;border:0;
+}
+/* di mobile: crop lebih kecil supaya isi video tidak terpotong berlebihan */
+@media(max-width:640px){
+  .hero-video iframe{transform:translate(-50%,-50%) scale(1.05)}
 }
 /* overlay agar teks tetap jelas terbaca di atas video */
 .hero-video::after{content:"";position:absolute;inset:0;
@@ -80,13 +84,14 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.15}
   background:radial-gradient(60rem 30rem at 85% -10%,rgba(255,201,60,.45),transparent 60%);
   animation:sunGlow 9s ease-in-out infinite}
 @keyframes sunGlow{0%,100%{opacity:.75}50%{opacity:1}}
-/* lapisan ombak bergerak di dasar hero (SVG inline, ringan, no JS) */
-.hero-sea{position:absolute;left:0;right:0;bottom:0;height:220px;z-index:1;pointer-events:none;overflow:hidden}
+/* lapisan ombak bergerak di dasar hero (SVG inline, ringan, no JS) — pemisah tegas */
+.hero-sea{position:absolute;left:0;right:0;bottom:-1px;height:150px;z-index:3;pointer-events:none;overflow:hidden}
+@media(min-width:900px){.hero-sea{height:190px}}
 .hero-sea .wave-layer{position:absolute;left:0;bottom:0;width:200%;height:100%;
   background-repeat:repeat-x;background-position:0 bottom;background-size:50% 100%}
-.hero-sea .w1{opacity:.35;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C120,110 240,30 360,60 C480,90 600,40 720,70 L720,120 L0,120 Z' fill='%2355B9C9'/%3E%3C/svg%3E");animation:waveMove 11s linear infinite}
-.hero-sea .w2{opacity:.5;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,80 C150,40 300,110 450,75 C570,48 660,90 720,78 L720,120 L0,120 Z' fill='%233FA7B8'/%3E%3C/svg%3E\");animation:waveMove 8s linear infinite reverse}
-.hero-sea .w3{opacity:.85;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,95 C180,70 320,120 480,95 C600,76 680,100 720,92 L720,120 L0,120 Z' fill='%23EAF8FA'/%3E%3C/svg%3E\");animation:waveMove 6s linear infinite}
+.hero-sea .w1{opacity:.55;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C120,110 240,30 360,60 C480,90 600,40 720,70 L720,120 L0,120 Z' fill='%233FA7B8'/%3E%3C/svg%3E");animation:waveMove 11s linear infinite}
+.hero-sea .w2{opacity:.8;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,80 C150,40 300,110 450,75 C570,48 660,90 720,78 L720,120 L0,120 Z' fill='%23BFEAF0'/%3E%3C/svg%3E\");animation:waveMove 8s linear infinite reverse}
+.hero-sea .w3{opacity:1;background-image:url(\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 120' preserveAspectRatio='none'%3E%3Cpath d='M0,88 C180,58 320,120 480,90 C600,68 680,100 720,86 L720,120 L0,120 Z' fill='%23EAF8FA'/%3E%3C/svg%3E\");animation:waveMove 6s linear infinite}
 @keyframes waveMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){
   .hero{animation:none}.hero::before{animation:none}
